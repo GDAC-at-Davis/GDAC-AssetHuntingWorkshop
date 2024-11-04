@@ -8,36 +8,35 @@ public class FloatingEnemyController : MonoBehaviour
     [SerializeField]
     private int maxHealth = 10;
 
+    [SerializeField]
+    private Rigidbody2D _rb;
+
+    [SerializeField]
+    private SpriteRenderer _spriteRenderer;
+
     [HideInInspector]
     public int health;
 
-    private PlayerMovementController player;
-    private Rigidbody2D enemyRigidbody;
-    private bool alerted;
+    public Vector2 Velocity => _rb.linearVelocity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         health = maxHealth;
-        player = FindFirstObjectByType<PlayerMovementController>();
-        enemyRigidbody = GetComponent<Rigidbody2D>();
-        if (player != null)
-        {
-            alerted = true; // Could add an aggro system later.
-        }
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        if (alerted)
+        if (_rb.linearVelocity.x > 0)
         {
-            Vector3 targetLoc = player.gameObject.transform.position;
-            Vector3 pursueDirection = targetLoc - transform.position;
-            Vector2 pursueDirection2DN = new Vector2(pursueDirection.x, pursueDirection.y).normalized;
-
-            enemyRigidbody.linearVelocity = pursueDirection2DN * moveSpeed;
+            _spriteRenderer.flipX = false;
         }
+        else if (_rb.linearVelocity.x < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
+
+        transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, _rb.linearVelocity));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -46,6 +45,13 @@ public class FloatingEnemyController : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+    }
+
+    public void SteerTowards(Vector2 desiredVelocity, float amount)
+    {
+        Vector2 vel = _rb.linearVelocity;
+        Vector2 newVel = Vector2.MoveTowards(vel, desiredVelocity, amount);
+        _rb.linearVelocity = newVel;
     }
 
     public void TakeDamage()
