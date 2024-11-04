@@ -24,6 +24,7 @@ public class SwarmController : MonoBehaviour
         public int InitialCount;
         public int MaxCount;
         public float SwarmRegenRate;
+        public float SpawnRadius;
     }
 
     [SerializeField]
@@ -58,7 +59,7 @@ public class SwarmController : MonoBehaviour
 
         if (timer <= 0f)
         {
-            timer = _spawnOptions.SwarmRegenRate;
+            timer = _spawnOptions.SwarmRegenRate * _enemies.Count / _spawnOptions.MaxCount;
             if (_enemies.Count < _spawnOptions.MaxCount)
             {
                 SpawnEnemy();
@@ -134,10 +135,16 @@ public class SwarmController : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _spawnOptions.SpawnRadius);
+    }
+
     private void SpawnEnemy()
     {
         FloatingEnemyController enemy = Instantiate(_enemyPrefab,
-            transform.position + (Vector3)Random.insideUnitCircle * 2f,
+            transform.position + (Vector3)Random.insideUnitCircle.normalized * _spawnOptions.SpawnRadius,
             Quaternion.identity);
         enemy.transform.SetParent(transform);
         _enemies.Add(enemy);
