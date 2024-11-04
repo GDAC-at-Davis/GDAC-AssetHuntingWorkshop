@@ -27,7 +27,14 @@ public class ProjectileScript : MonoBehaviour
     {
         GameObject hit = other.gameObject;
 
-        if (LayerMask.LayerToName(hit.layer) == "Ground")
+        var enemy = hit.GetComponent<FloatingEnemyController>();
+
+        if (enemy != null)
+        {
+            enemy.TakeDamage();
+            Destroy(gameObject);
+        }
+        else if (LayerMask.LayerToName(hit.layer) == "Ground")
         {
             Destroy(gameObject);
         }
