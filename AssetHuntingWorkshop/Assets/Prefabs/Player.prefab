@@ -152,11 +152,11 @@ MonoBehaviour:
   _weaponPivot: {fileID: 2696493795302728469}
   _projectileSpawnPoint: {fileID: 2609423108430460742}
   _weaponStats:
-    FireDelay: 0.15
+    FireDelay: 0.12
     ProjectileSpeed: 20
     ProjectileSpread: 15
-    ProjectileLifetime: 2
-    RecoilForce: 1.5
+    ProjectileLifetime: 1.5
+    RecoilForce: 1
   OnFire:
     m_PersistentCalls:
       m_Calls:

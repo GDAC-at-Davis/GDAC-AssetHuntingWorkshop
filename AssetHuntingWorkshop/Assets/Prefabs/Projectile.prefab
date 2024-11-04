@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSprite: {fileID: 2243835143645183081}
   _rb: {fileID: 5018066458209040392}
+  _particlePrefab: {fileID: 4190837156827026850, guid: ac7725c5839997c4f93526fc709b6c76, type: 3}
 --- !u!50 &5018066458209040392
 Rigidbody2D:
   serializedVersion: 5
@@ -151,7 +152,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
