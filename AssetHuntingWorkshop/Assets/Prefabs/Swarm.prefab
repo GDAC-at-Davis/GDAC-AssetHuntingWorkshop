@@ -55,7 +55,7 @@ MonoBehaviour:
     MinSpeed: 10
   _spawnOptions:
     InitialCount: 8
-    MaxCount: 15
+    MaxCount: 20
     SwarmRegenRate: 5
-    SpawnRadius: 28.9
+    SpawnRadius: 4
   _playerTarget: {fileID: 0}
