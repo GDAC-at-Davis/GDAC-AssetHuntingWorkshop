@@ -17,7 +17,11 @@ public class FloatingEnemyController : MonoBehaviour
     [HideInInspector]
     public int health;
 
-    public Vector2 Velocity => _rb.linearVelocity;
+    public Vector2 Velocity
+    {
+        get => _rb.linearVelocity;
+        set => _rb.linearVelocity = value;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -45,13 +49,6 @@ public class FloatingEnemyController : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
-    }
-
-    public void SteerTowards(Vector2 desiredVelocity, float amount)
-    {
-        Vector2 vel = _rb.linearVelocity;
-        Vector2 newVel = Vector2.MoveTowards(vel, desiredVelocity, amount);
-        _rb.linearVelocity = newVel;
     }
 
     public void TakeDamage()

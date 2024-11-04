@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SwarmController : MonoBehaviour
 {
@@ -10,15 +11,19 @@ public class SwarmController : MonoBehaviour
     {
         public float Coherence;
         public float Separation;
+        public float SeparationRange;
         public float Alignment;
         public float Targetting;
         public float TopSpeed;
+        public float MinSpeed;
     }
 
     [Serializable]
     public struct SpawnOptions
     {
         public int InitialCount;
+        public int MaxCount;
+        public float SwarmRegenRate;
     }
 
     [SerializeField]
@@ -33,7 +38,11 @@ public class SwarmController : MonoBehaviour
     [SerializeField]
     private Transform _playerTarget;
 
-    private List<FloatingEnemyController> _enemies;
+    private List<FloatingEnemyController> _enemies = new();
+
+    private Vector2 playerPos;
+
+    private float timer;
 
     private void Awake()
     {
@@ -45,6 +54,17 @@ public class SwarmController : MonoBehaviour
 
     private void Update()
     {
+        timer -= Time.deltaTime;
+
+        if (timer <= 0f)
+        {
+            timer = _spawnOptions.SwarmRegenRate;
+            if (_enemies.Count < _spawnOptions.MaxCount)
+            {
+                SpawnEnemy();
+            }
+        }
+
         // Remove dead enemies
         _enemies = _enemies.Where(a => a != null).ToList();
 
@@ -65,16 +85,28 @@ public class SwarmController : MonoBehaviour
         foreach (FloatingEnemyController enemy in _enemies)
         {
             Vector2 currentPos = enemy.transform.position;
-            Vector2 playerPos = _playerTarget.position;
+            if (_playerTarget != null)
+            {
+                playerPos = _playerTarget.position;
+            }
 
             Vector2 desiredTargetVel = (playerPos - currentPos).normalized * _boidOptions.TopSpeed;
-            Vector2 desiredCohesion = (averagePos - currentPos).normalized * _boidOptions.TopSpeed;
-            Vector2 desiredAlignment = averageVel.normalized * _boidOptions.TopSpeed;
+            Vector2 desiredCohesion = averagePos - currentPos;
+            Vector2 desiredAlignment = averageVel;
 
-            enemy.SteerTowards(desiredTargetVel, _boidOptions.Targetting * timeStep);
-            enemy.SteerTowards(desiredCohesion, _boidOptions.Coherence * timeStep);
-            enemy.SteerTowards(desiredAlignment, _boidOptions.Alignment * timeStep);
+            float distanceToPlayer = (playerPos - currentPos).magnitude;
 
+            enemy.Velocity = Vector2.MoveTowards(enemy.Velocity,
+                desiredTargetVel,
+                _boidOptions.Targetting * timeStep * distanceToPlayer * distanceToPlayer);
+
+            enemy.Velocity = Vector2.MoveTowards(enemy.Velocity, desiredCohesion,
+                _boidOptions.Coherence * timeStep);
+
+            enemy.Velocity = Vector2.MoveTowards(enemy.Velocity, desiredAlignment,
+                _boidOptions.Alignment * timeStep);
+
+            Vector2 separationVector = Vector2.zero;
             foreach (FloatingEnemyController otherEnemies in _enemies)
             {
                 if (otherEnemies == enemy)
@@ -85,17 +117,28 @@ public class SwarmController : MonoBehaviour
                 Vector2 otherPos = otherEnemies.transform.position;
                 Vector2 toOther = otherPos - currentPos;
                 float distance = toOther.magnitude;
-                distance = Mathf.Max(0.1f, distance);
 
-                enemy.SteerTowards(-toOther.normalized * _boidOptions.TopSpeed,
-                    _boidOptions.Separation / distance * timeStep);
+                if (distance < _boidOptions.SeparationRange)
+                {
+                    separationVector -= toOther;
+                }
+            }
+
+            enemy.Velocity += separationVector * (_boidOptions.Separation * timeStep);
+
+            enemy.Velocity = Vector2.ClampMagnitude(enemy.Velocity, _boidOptions.TopSpeed);
+            if (enemy.Velocity.magnitude < _boidOptions.MinSpeed)
+            {
+                enemy.Velocity = enemy.Velocity.normalized * _boidOptions.MinSpeed;
             }
         }
     }
 
     private void SpawnEnemy()
     {
-        FloatingEnemyController enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+        FloatingEnemyController enemy = Instantiate(_enemyPrefab,
+            transform.position + (Vector3)Random.insideUnitCircle * 2f,
+            Quaternion.identity);
         enemy.transform.SetParent(transform);
         _enemies.Add(enemy);
     }
