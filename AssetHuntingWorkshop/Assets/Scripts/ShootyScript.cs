@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class ShootyScript : MonoBehaviour
@@ -28,6 +29,8 @@ public class ShootyScript : MonoBehaviour
     [SerializeField]
     private GunStats _weaponStats;
 
+    public UnityEvent OnFire;
+
     private float _fireTimer;
 
     private void Update()
@@ -43,6 +46,7 @@ public class ShootyScript : MonoBehaviour
             {
                 FireProjectile(aimDir);
                 _fireTimer = _weaponStats.FireDelay;
+                OnFire?.Invoke();
             }
 
             _weaponSprite.enabled = true;
