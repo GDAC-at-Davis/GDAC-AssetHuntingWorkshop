@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    const float JUMP_LEEWAY_RANGE = 0.2f;
+    const float JUMP_LEEWAY_Y_RANGE = 0.2f;
+    const float JUMP_LEEWAY_X_MOD = 1.25f;
 
     [SerializeField] float moveSpeed = 7.5f;
     [SerializeField] float jumpForce = 400;
@@ -49,7 +50,7 @@ public class PlayerMovementController : MonoBehaviour
     
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, JUMP_LEEWAY_RANGE, groundLayer);
+        return Physics2D.OverlapBox(groundCheck.position, new Vector2(transform.localScale.x * JUMP_LEEWAY_X_MOD, JUMP_LEEWAY_Y_RANGE), 0f, groundLayer);
     }
 
 
