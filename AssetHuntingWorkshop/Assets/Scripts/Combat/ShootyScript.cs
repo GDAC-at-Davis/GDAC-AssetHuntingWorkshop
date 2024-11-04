@@ -12,7 +12,11 @@ public class ShootyScript : MonoBehaviour
         public float ProjectileSpeed;
         public float ProjectileSpread;
         public float ProjectileLifetime;
+        public float RecoilForce;
     }
+
+    [SerializeField]
+    private Rigidbody2D _rb;
 
     [SerializeField]
     private ProjectileScript _projectilePrefab;
@@ -37,7 +41,7 @@ public class ShootyScript : MonoBehaviour
     {
         _fireTimer -= Time.deltaTime;
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetMouseButton(0))
         {
             Vector2 aimDir = GetMouseDir();
             RotateWeaponSprite(aimDir);
@@ -46,6 +50,7 @@ public class ShootyScript : MonoBehaviour
             {
                 FireProjectile(aimDir);
                 _fireTimer = _weaponStats.FireDelay;
+                _rb.linearVelocity += _weaponStats.RecoilForce * -aimDir;
                 OnFire?.Invoke();
             }
 

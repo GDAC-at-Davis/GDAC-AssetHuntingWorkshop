@@ -1,37 +1,49 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    const float JUMP_LEEWAY_Y_RANGE = 0.2f;
-    const float JUMP_LEEWAY_X_MOD = 1.25f;
+    private const float JUMP_LEEWAY_Y_RANGE = 0.2f;
+    private const float JUMP_LEEWAY_X_MOD = 1.25f;
 
-    [SerializeField] float moveSpeed = 7.5f;
-    [SerializeField] float jumpForce = 400;
-    [SerializeField] float heldJumpGravityMult = 0.7f; // Gravity is this times as strong if you are holding the jump button
+    [SerializeField]
+    private float moveSpeed = 7.5f;
+
+    [SerializeField]
+    private float jumpForce = 400;
+
+    [SerializeField]
+    private float heldJumpGravityMult = 0.7f; // Gravity is this times as strong if you are holding the jump button
+
+    [SerializeField]
+    private float shootingMoveSpeed;
 
     // Some code reused from Gnome Globe. Credits to Thomas Watson
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField]
+    private Transform groundCheck;
+
+    [SerializeField]
+    private LayerMask groundLayer;
+
+    public UnityEvent OnJumpEvent;
 
     private float defaultGravity;
 
-
-
     private Rigidbody2D playerRigidbody;
 
-    void Start()
+    private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         defaultGravity = playerRigidbody.gravityScale;
     }
 
-    void Update()
+    private void Update()
     {
-
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             playerRigidbody.linearVelocityY = 0;
             playerRigidbody.AddForce(new Vector2(0, jumpForce));
+            OnJumpEvent?.Invoke();
         }
 
         if (Input.GetButton("Jump") && !IsGrounded())
@@ -45,13 +57,14 @@ public class PlayerMovementController : MonoBehaviour
 
         float movement = Input.GetAxis("Horizontal");
 
-        playerRigidbody.linearVelocityX = movement * moveSpeed;
+        bool shooting = Input.GetMouseButton(0);
+
+        playerRigidbody.linearVelocityX = movement * (shooting ? shootingMoveSpeed : moveSpeed);
     }
-    
-    bool IsGrounded()
+
+    private bool IsGrounded()
     {
-        return Physics2D.OverlapBox(groundCheck.position, new Vector2(transform.localScale.x * JUMP_LEEWAY_X_MOD, JUMP_LEEWAY_Y_RANGE), 0f, groundLayer);
+        return Physics2D.OverlapBox(groundCheck.position,
+            new Vector2(transform.localScale.x * JUMP_LEEWAY_X_MOD, JUMP_LEEWAY_Y_RANGE), 0f, groundLayer);
     }
-
-
 }
