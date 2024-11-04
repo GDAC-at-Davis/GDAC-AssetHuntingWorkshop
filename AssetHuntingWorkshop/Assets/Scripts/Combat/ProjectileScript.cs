@@ -8,6 +8,9 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField]
     private Rigidbody2D _rb;
 
+    [SerializeField]
+    private GameObject _particlePrefab;
+
     private float _lifeTimer;
 
     private void Update()
@@ -28,6 +31,8 @@ public class ProjectileScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Instantiate(_particlePrefab, transform.position, Quaternion.identity);
     }
 
     private void RotateTowardsVelocity()
