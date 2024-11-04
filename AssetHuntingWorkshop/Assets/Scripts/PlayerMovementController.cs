@@ -27,6 +27,9 @@ public class PlayerMovementController : MonoBehaviour
 
     public UnityEvent OnJumpEvent;
 
+    [SerializeField]
+    private SpriteRenderer _sprite;
+
     private float defaultGravity;
 
     private Rigidbody2D playerRigidbody;
@@ -56,6 +59,15 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         float movement = Input.GetAxis("Horizontal");
+
+        if (movement < 0)
+        {
+            _sprite.flipX = true;
+        }
+        else if (movement > 0)
+        {
+            _sprite.flipX = false;
+        }
 
         bool shooting = Input.GetMouseButton(0);
 

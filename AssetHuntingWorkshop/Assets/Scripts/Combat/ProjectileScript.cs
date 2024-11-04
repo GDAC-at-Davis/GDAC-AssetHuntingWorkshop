@@ -20,6 +20,16 @@ public class ProjectileScript : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        GameObject hit = other.gameObject;
+
+        if (LayerMask.LayerToName(hit.layer) == "Ground")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void RotateTowardsVelocity()
     {
         transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, _rb.linearVelocity));

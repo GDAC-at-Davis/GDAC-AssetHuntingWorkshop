@@ -113,7 +113,7 @@ MonoBehaviour:
   moveSpeed: 7.5
   jumpForce: 375
   heldJumpGravityMult: 0.7
-  shootingMoveSpeed: 3
+  shootingMoveSpeed: 4.5
   groundCheck: {fileID: 5923078673117840710}
   groundLayer:
     serializedVersion: 2
@@ -133,6 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _sprite: {fileID: 6419538935299418689}
 --- !u!114 &4035833661541030865
 MonoBehaviour:
   m_ObjectHideFlags: 0
