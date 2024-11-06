@@ -2825,7 +2825,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -999
-  m_Sprite: {fileID: -1955448553306655712, guid: a07e5eabeca844a438d9716cf4664354, type: 3}
+  m_Sprite: {fileID: -2940350237047373369, guid: 5e33f03917925cf41805cb3a89ccb31b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2852,6 +2852,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5191655684254393205, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191655684254393205, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7624543981066862773, guid: 302f614e0b70dcc4597ff9a5decee4c4, type: 3}
     - target: {fileID: 5614126764714118326, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.6
@@ -2892,6 +2900,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5661554299394784814, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419538935299418689, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3153711616510166975, guid: 18aaf70e917e39a47958908451c67164, type: 3}
+    - target: {fileID: 6995691354671029902, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_Volume
+      value: 0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995691354671029902, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: d99f0fa0d347f1346ba5c1e4c73e9ff9, type: 3}
+    - target: {fileID: 6995691354671029902, guid: ae62e09849ad8e04ead3e14d70b1bb95, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d99f0fa0d347f1346ba5c1e4c73e9ff9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2963,10 +2991,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 9f3990770bc51ad48888444a3da1a2e6, type: 3}
+  m_Resource: {fileID: 8300000, guid: 9f3990770bc51ad48888444a3da1a2e6, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.088
   m_Pitch: 1
   Loop: 1
   Mute: 0
