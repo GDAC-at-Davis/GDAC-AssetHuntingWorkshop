@@ -18,6 +18,9 @@ public class FloatingEnemyController : MonoBehaviour
     [HideInInspector]
     public int health;
 
+    [SerializeField]
+    private AudioClip _deathSound;
+
     public Vector2 Velocity
     {
         get => _rb.linearVelocity;
@@ -58,6 +61,7 @@ public class FloatingEnemyController : MonoBehaviour
         health -= 1;
         if (health <= 0)
         {
+            AudioSource.PlayClipAtPoint(_deathSound, transform.position);
             Destroy(gameObject);
         }
     }
