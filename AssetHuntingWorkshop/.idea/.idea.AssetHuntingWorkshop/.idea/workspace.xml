@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6677c06-7426-4df2-813f-c27e79311b5e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Floating Enemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Floating Enemy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BoidTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BoidTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FloatingEnemyController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FloatingEnemyController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SwarmController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SwarmController.cs.meta" beforeDir="false" />
-    </list>
+    <list default="true" id="f6677c06-7426-4df2-813f-c27e79311b5e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1730710060857</updated>
       <workItem from="1730710062517" duration="9606000" />
-      <workItem from="1730858356426" duration="662000" />
+      <workItem from="1730858356426" duration="981000" />
     </task>
     <servers />
   </component>

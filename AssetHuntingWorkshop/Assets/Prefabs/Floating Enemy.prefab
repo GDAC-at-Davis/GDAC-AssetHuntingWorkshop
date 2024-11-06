@@ -180,3 +180,4 @@ MonoBehaviour:
   _rb: {fileID: 5804881828384176149}
   _spriteRenderer: {fileID: 8565396194333100044}
   health: 0
+  _deathSound: {fileID: 8300000, guid: b253c6c95a1216242a498863376af8ec, type: 3}
